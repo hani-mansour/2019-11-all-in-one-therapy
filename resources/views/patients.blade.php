@@ -6,10 +6,13 @@
 
 @section('main')
     <div class="container">
+        <div class="m-3">
+            <a href="/patients/create">Add New Patient</a>
+        </div>
         <form method="post" action="{{route('patients')}}">
             @csrf
             <p><input class="form-control" type="text" name="name" placeholder="Patient First Name"></p>
-            <p><button class="btn btn-primary" type="submit">Suchen</button></p>
+            <p><button class="btn btn-primary" type="submit">Search</button></p>
         </form>
 
         <table class="table table-bordered">
@@ -22,6 +25,7 @@
                 <th>@sortablelink('plz ')</th>
                 <th>@sortablelink('city')</th>
                 <th>@sortablelink('country')</th>
+                <th>Details</th>
             </tr>
             @if($patients->count())
                 @foreach($patients as $patient)
@@ -34,10 +38,14 @@
                         <td>{{ $patient->plz }}</td>
                         <td>{{ $patient->city }}</td>
                         <td>{{ $patient->country }}</td>
+                        <td><a href="/patients/{{$patient->id}}">View Details</a></td>
                     </tr>
                 @endforeach
             @endif
         </table>
-        <p>{{$patients->links()}}</p>
+
+        <p>{!! $patients->appends(\Request::except('page'))->render() !!}</p>
+        {{--<p>{{$patients->links()}}</p>--}}
     </div>
+
 @endsection
