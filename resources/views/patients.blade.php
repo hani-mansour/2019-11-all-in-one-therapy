@@ -8,11 +8,8 @@
     <div class="container">
         <form method="post" action="{{route('patients')}}">
             @csrf
-            @if( $errors->any() )
-                <p class="alert alert-danger">Nice try.</p>
-            @endif
             <p><input class="form-control" type="text" name="name" placeholder="Patient First Name"></p>
-            <p><button class="btn btn-primary" type="submit">Filter</button></p>
+            <p><button class="btn btn-primary" type="submit">Suchen</button></p>
         </form>
 
         <table class="table table-bordered">
