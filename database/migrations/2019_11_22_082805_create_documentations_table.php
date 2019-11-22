@@ -16,8 +16,10 @@ class CreateDocumentationsTable extends Migration
         Schema::create('documentations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('patient_id');
-            $table->text('text')->nullable();
+            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
+            $table->text('text');
             $table->timestamps();
         });
     }

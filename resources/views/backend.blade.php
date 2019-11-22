@@ -4,7 +4,7 @@
     @auth
         <a href="/patients">Patient</a>
         <a href="/backend">kalender</a>
-        <a href="/backend">Doku</a>
+        <a href="/documentations">Dokumentationen</a>
         <a href="/">Frontend</a>
     @endauth
 @endsection

@@ -16,7 +16,7 @@
             @method('PATCH')
             @csrf
             <div class="form-group row">
-                <label for="svnr" class="col-sm-2 col-form-label">Svnr </label>
+                <label for="svnr" class="">Svnr </label>
                 <input name="svnr"
                        class="form-control"
                        type="text"
@@ -90,5 +90,36 @@
 
             <button class="btn btn-primary" type="submit">Update</button>
         </form>
+
+        <div class="row m-3">
+            @if($documentations->count())
+                <h1>Patient Documentations</h1>
+                <div class="m-3 float-right">
+                    <a href="/patients/{{$details->id}}/documentation">Add New Documentation</a>
+                </div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>@sortablelink('Datum')</th>
+                        <th>@sortablelink('firstname')</th>
+                        <th>@sortablelink('lastname')</th>
+                        <th>@sortablelink('svnr')</th>
+                        <th>@sortablelink('text')</th>
+                    </tr>
+
+                    @foreach($documentations as $doc)
+                        <tr>
+                            <td>{{ $doc->created_at->toDateString() }}</td>
+                            <td>{{ $doc->patient->firstname }}</td>
+                            <td>{{ $doc->patient->lastname }}</td>
+                            <td>{{ $doc->patient->svnr }}</td>
+                            <td>{{ $doc->text }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            @endif
+
+            <p>{!! $documentations->appends(\Request::except('page'))->render() !!}</p>
+
+        </div>
     </div>
 @endsection

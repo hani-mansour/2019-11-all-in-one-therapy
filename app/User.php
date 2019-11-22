@@ -37,4 +37,8 @@ class User extends Authenticatable
         'updated_at' => 'datetime',
         'created_at' => 'datetime',
     ];
+
+    public function documentations() {
+        return $this->hasMany('App\Documentation');
+    }
 }

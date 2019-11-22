@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Patient;
+use App\Documentation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -24,11 +25,16 @@ class PatientController extends Controller
         return view('patients',compact('patients'));
     }
 
-    public function show($id)
+    public function show(Patient $patient,$id)
     {
         /*dd($id);*/
-        $details = Patient::findOrFail($id);
-        return view('view',compact('details'));
+        $details = $patient->findOrFail($id);
+        if (auth()->user())
+        {
+            $documentations = Patient::findOrFail($id)->documentations()->orderBy('id', 'desc')->paginate(getenv('AIOT_PAGINATE_ROWS'));
+        }
+
+        return view('view',compact('details','documentations'));
     }
 
     public function update($id)

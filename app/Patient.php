@@ -14,4 +14,8 @@ class Patient extends Model
 
 
     public $sortable = ['id', 'name', 'firstname', 'lastname', 'email', 'address', 'plz', 'city', 'country', 'created_at', 'updated_at'];
+
+    public function documentations() {
+        return $this->hasMany('App\Documentation')->orderBy('id', 'desc')  ;
+    }
 }
